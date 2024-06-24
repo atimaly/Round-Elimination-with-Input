@@ -49,7 +49,7 @@ pub mod one_round {
         delta_deg_size: usize, //The size of node states or in other words degree of nodes.
         delta_edge_size: usize, //The size of edge states or in other words size of edges.
         node_states: Vec<Vec<T>>,
-        edge_states: Vec<Vec<T>>,
+        edge_states: Vec<Vec<T>>, //The edge state is always sorted.
     }
 
     impl<T: FromStr + Hash + Copy + std::cmp::Eq + Debug + Default + std::cmp::Ord>
@@ -108,6 +108,7 @@ pub mod one_round {
             ))
         }
 
+        /// The function checks if a given edge state appears in the problems edge state
         pub fn edge_exist(&self, edge_to_check: &mut Vec<T>) -> bool {
             edge_to_check.sort();
             for edge in self.edge_states.iter() {
@@ -168,6 +169,7 @@ pub mod one_round {
             }
         }
 
+        /// For every input label we determine what output labels can it take on.
         pub fn summarized_labeling_mapping<
             T: FromStr + Hash + Copy + std::cmp::Eq + Debug + Default + std::cmp::Ord,
         >(
